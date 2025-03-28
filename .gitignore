@@ -1,3 +1,9 @@
-../../daemon/**
-../../dist/**
-../../node_modules/**
+# Node.js
+# Logs
+my-node-app/daemon/**
+my-node-app/dist/**
+my-node-app/node_modules/**
+my-node-app/coverage/**
+package-lock.json
+
+# Build output

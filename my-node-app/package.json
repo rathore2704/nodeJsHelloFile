@@ -1,0 +1,59 @@
+{
+  "name": "my-node-app",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "node app.js",
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.example.backgroundservice",
+    "productName": "My Node App",
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "files": [
+      "main.js",
+      "service.js",
+      "app.js",
+      "index.html",
+      "node_modules/**/*"
+    ],
+    "asarUnpack": [
+      "node_modules/node-windows/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "node_modules",
+        "to": "node_modules",
+        "filter": ["**/*"]
+      }
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "runAfterFinish": true
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "My Node App with Windows Service",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-windows": "^1.0.0-beta.8"
+  },
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1"
+  }
+}
+
+
