@@ -4,43 +4,7 @@
   "main": "main.js",
   "scripts": {
     "test": "node app.js",
-    "start": "electron .",
-    "build": "electron-builder --win"
-  },
-  "build": {
-    "appId": "com.example.backgroundservice",
-    "productName": "My Node App",
-    "win": {
-      "target": "nsis",
-      "icon": "build/icon.ico"
-    },
-    "files": [
-      "main.js",
-      "service.js",
-      "app.js",
-      "index.html",
-      "node_modules/**/*"
-    ],
-    "asarUnpack": [
-      "node_modules/node-windows/**/*"
-    ],
-    "extraResources": [
-      {
-        "from": "node_modules",
-        "to": "node_modules",
-        "filter": ["**/*"]
-      }
-    ],
-    "directories": {
-      "output": "dist",
-      "buildResources": "build"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "runAfterFinish": true
-    }
+    "tauri": "tauri build"
   },
   "keywords": [],
   "author": "",
@@ -50,10 +14,26 @@
     "express": "^4.18.2",
     "node-windows": "^1.0.0-beta.8"
   },
-  "devDependencies": {
-    "electron": "^28.1.0",
-    "electron-builder": "^24.9.1"
+  "build": {
+    "beforeBuildCommand": "",
+    "beforeDevCommand": "",
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
+  },
+  "package": {
+    "productName": "My Node App",
+    "version": "1.0.0"
+  },
+  "tauri": {
+    "windows": [
+      {
+        "title": "My Node App",
+        "resizable": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self';"
+    }
   }
 }
-
-

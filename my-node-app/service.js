@@ -1,27 +1,38 @@
 const { Service } = require("node-windows");
 const path = require("path");
-const isDev = process.env.NODE_ENV === 'development';
+const fs = require("fs");
 
 // Get the correct path for the script
 const getScriptPath = () => {
-    if (isDev) {
-        return path.join(__dirname, "app.js");
-    } else {
-        // In production, the app.js is in the resources directory
-        return path.join(process.resourcesPath, "app.asar", "app.js");
+    const scriptPath =  path.join(process.resourcesPath || __dirname, "app.asar.unpacked", "app.js");
+    console.log("Resolved script path:", scriptPath); // Log the resolved path
+    return scriptPath;
+};
+
+// Ensure the daemon directory exists
+const ensureDaemonDirectory = () => {
+    const daemonPath = path.join(process.resourcesPath || __dirname, "app.asar.unpacked", "daemon");
+    if (!fs.existsSync(daemonPath)) {
+        fs.mkdirSync(daemonPath, { recursive: true });
+        console.log("Created daemon directory:", daemonPath);
     }
 };
 
+// Call the function to ensure the directory exists
+ensureDaemonDirectory();
+
 // Create a new service object
 const svc = new Service({
-    name: "My Node App",
-    description: "My Node App",
+    name: "APP_WINDOWs_SERVICE",
+    description: "APP TEST WINDOWS SERVICE",
     script: getScriptPath(),
     nodeOptions: [
         '--harmony',
         '--max_old_space_size=4096'
     ]
 });
+
+console.log("Service script path:", getScriptPath());
 
 // Listen for the install event
 svc.on("install", () => {
